@@ -53,7 +53,5 @@ jobs:
           fi
           echo "publishing ${PACKAGE}"
 
-      - name: Publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish with trusted publishing
         run: npm publish --access public --provenance
