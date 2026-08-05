@@ -145,7 +145,7 @@ jobs:
 
   npm:
     name: publish to npm
-    needs: [release, artifacts]
+    needs: release
     if: needs.release.outputs.released == 'true'
     runs-on: ubuntu-latest
     permissions:
