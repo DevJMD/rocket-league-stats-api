@@ -642,14 +642,14 @@ export class RocketLeagueStatsClient {
         const { signal } = options;
 
         const queue: StatsApiMessage[] = [];
-        let notify: (() => void) | undefined;
+        let pending: PromiseWithResolvers<void> | undefined;
         let finished = false;
 
         const wake = (): void => {
-            const resume = notify;
+            const waiter = pending;
 
-            notify = undefined;
-            resume?.();
+            pending = undefined;
+            waiter?.resolve();
         };
 
         const listener: LifecycleListener<'message'> = (message) => {
@@ -686,9 +686,10 @@ export class RocketLeagueStatsClient {
                     }
 
                     if (finished) return;
-                    await new Promise<void>((resolve) => {
-                        notify = resolve;
-                    });
+
+                    pending ??= Promise.withResolvers<void>();
+
+                    await pending.promise;
                 }
             } finally {
                 cleanup();
