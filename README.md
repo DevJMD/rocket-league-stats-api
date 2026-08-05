@@ -5,10 +5,15 @@ Typed client for the [Rocket League Stats API](https://www.rocketleague.com/deve
 ESM only. Zero dependencies. All 22 events and all 6 commands, validated at runtime.
 
 ```bash
-npm install @devjmd/rocket-league-stats-api
+npm  install @devjmd/rocket-league-stats-api
+pnpm add     @devjmd/rocket-league-stats-api
+bun  add     @devjmd/rocket-league-stats-api
+yarn add     @devjmd/rocket-league-stats-api
 ```
 
-Node 20.11+.
+Node 24+. CI installs the packed tarball with all four managers and runs it, so
+compatibility is tested rather than assumed. The Bun runtime works too, not just its
+installer.
 
 ## Enable the game
 
@@ -108,7 +113,17 @@ class Overlay extends StatsPlugin {
 }
 ```
 
-These are frozen objects, not TypeScript `enum`s. A string enum member is nominal, so it would not resolve to the literal key the payload types are indexed by, and it would emit runtime code. Constants keep exact literal types, so payload narrowing works and raw strings stay interchangeable.
+Your own `enum` works too, since the parameter is a string literal union:
+
+```ts
+enum MyEvents {
+    Goal = 'GoalScored',
+}
+
+client.on(MyEvents.Goal, (goal) => console.log(goal.Scorer.Name));
+```
+
+The exported constants are plain frozen objects rather than `enum`s because `enum` is the one piece of TypeScript that cannot be erased. `node file.ts` fails on it with `ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX`, and it emits a runtime object either way. Constants keep exact literal types, so narrowing is identical and raw strings stay interchangeable.
 
 ## Validation
 
@@ -155,9 +170,13 @@ npm run check     # lint, typecheck, test
 
 Style is single quotes and four space indents. Source imports use `.ts` specifiers, which TypeScript rewrites to the real runtime filename on build. That is an ESM requirement, not a CommonJS one: Node's ESM resolver does no extension guessing, so `import './client'` throws `ERR_MODULE_NOT_FOUND` and the specifier has to name the file that exists at runtime. The output is ESM only, with no CommonJS build and no `require` anywhere in `dist`.
 
+Built with TypeScript 7 targeting `es2025`, the highest stable target Node 24 supports. Not `esnext`, because its meaning changes with every TypeScript release, so a toolchain bump would silently change the JavaScript consumers receive.
+
+`erasableSyntaxOnly` keeps the source free of syntax that only a type-aware compiler can remove, so every file also runs under Node's native type stripping. `isolatedDeclarations` is on for the build, so declarations emit per file without whole-program inference.
+
 `npm run format` runs Prettier and then `scripts/spacing.mjs`, which enforces one blank line between declarations and members and separates constants, blocks and returns. oxlint has no blank line rules, so the formatter owns that.
 
-Releases run on Conventional Commits through release-please. Merging its release PR tags the version, attaches compiled and source archives, and publishes to npm.
+Releases run on Conventional Commits through release-please, which is a two step flow. A push to `main` opens or updates a release PR, it does not publish. Merging that PR is what tags the version, attaches the compiled and source archives, and publishes to npm. Set `skip-github-pull-request: true` in the release workflow if you would rather it tag straight from `main`.
 
 Tests run against a fake game over a real socket, so Rocket League is not needed. Fixtures are copied verbatim from the official docs.
 
