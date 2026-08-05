@@ -28,7 +28,7 @@ export type TeamNum = 0 | 1;
 export const TeamIndex = {
     Blue: 0,
     Orange: 1,
-} as const satisfies Record<string, TeamNum>;
+} as const;
 
 export const NO_TEAM = 255;
 

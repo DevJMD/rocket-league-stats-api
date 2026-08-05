@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2023",
+    "target": "es2025",
     "lib": [
-      "ES2023",
-      "ESNext.Disposable"
+      "es2025"
     ],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -29,7 +28,11 @@
     "allowImportingTsExtensions": true,
     "rewriteRelativeImportExtensions": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "erasableSyntaxOnly": true,
+    "noUncheckedSideEffectImports": true,
+    "strictBuiltinIteratorReturn": true,
+    "libReplacement": false
   },
   "include": [
     "src",

@@ -62,7 +62,7 @@ export const LifecycleEvent = {
     Message: 'message',
     UnknownEvent: 'unknownEvent',
     Warning: 'warning',
-} as const satisfies Record<string, keyof ClientLifecycleMap>;
+} as const;
 
 export type ClientEventName = StatsApiEventName | keyof ClientLifecycleMap;
 
