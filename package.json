@@ -1,6 +1,6 @@
 {
   "name": "@devjmd/rocket-league-stats-api",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Fully typed, zero dependency client for the official Rocket League Stats API. Reads live match ticks and events over a local TCP socket and sends spectator or replay commands back to the game.",
   "keywords": [
     "rocket-league",
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/DevJMD/rocket-league-stats-api#readme",
   "type": "module",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=24.0.0"
   },
   "exports": {
     ".": {
