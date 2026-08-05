@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/DevJMD/rocket-league-stats-api/compare/v0.1.1...v0.1.2) (2026-08-05)
+
+
+### Bug Fixes
+
+* 🐛 publish only from release.yml ([89fc989](https://github.com/DevJMD/rocket-league-stats-api/commit/89fc989c45bf407629a7d082eb9ad9e2d93f06e2))
+
 ## [0.1.1](https://github.com/DevJMD/rocket-league-stats-api/compare/v0.1.0...v0.1.1) (2026-08-05)
 
 
