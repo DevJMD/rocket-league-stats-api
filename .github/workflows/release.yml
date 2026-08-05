@@ -4,6 +4,11 @@ on:
   push:
     branches: [master]
   workflow_dispatch:
+    inputs:
+      publish_tag:
+        description: Publish an existing tag to npm, for example v0.1.1
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -145,15 +150,17 @@ jobs:
   npm:
     name: publish to npm
     needs: release
-    if: needs.release.outputs.released == 'true'
+    if: needs.release.outputs.released == 'true' || github.event.inputs.publish_tag != ''
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
+    env:
+      REF: ${{ github.event.inputs.publish_tag || needs.release.outputs.tag }}
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: ${{ needs.release.outputs.tag }}
+          ref: ${{ github.event.inputs.publish_tag || needs.release.outputs.tag }}
 
       - uses: actions/setup-node@v7
         with:
@@ -165,6 +172,16 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Confirm the tag matches the package version
+        run: |
+          set -euo pipefail
+          PACKAGE=$(node -p "require('./package.json').version")
+          if [ "$REF" != "v${PACKAGE}" ]; then
+            echo "::error title=Version mismatch::Ref $REF does not match package.json version $PACKAGE"
+            exit 1
+          fi
+          echo "publishing ${PACKAGE}"
 
       - name: Publish with trusted publishing
         run: npm publish --access public --provenance
