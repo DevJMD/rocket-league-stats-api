@@ -3,7 +3,6 @@
   "packages": {
     ".": {
       "release-type": "node",
-      "package-name": "@devjmd/rocket-league-stats-api",
       "changelog-path": "CHANGELOG.md",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": false,
