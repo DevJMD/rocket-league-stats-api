@@ -176,7 +176,9 @@ Built with TypeScript 7 targeting `es2025`, the highest stable target Node 24 su
 
 `npm run format` runs Prettier and then `scripts/spacing.mjs`, which enforces one blank line between declarations and members and separates constants, blocks and returns. oxlint has no blank line rules, so the formatter owns that.
 
-Releases run on Conventional Commits through release-please, which is a two step flow. A push to `main` opens or updates a release PR, it does not publish. Merging that PR is what tags the version, attaches the compiled and source archives, and publishes to npm. Set `skip-github-pull-request: true` in the release workflow if you would rather it tag straight from `main`.
+Releases run on Conventional Commits through release-please, which is a two step flow. A push to `master` opens or updates a release PR, it does not publish. Merging that PR is what tags the version, writes `CHANGELOG.md`, attaches the compiled and source archives, and publishes to npm. Set `skip-github-pull-request: true` in the release workflow if you would rather it tag straight from `master`.
+
+Publishing needs an `NPM_TOKEN` repository secret. Once the package exists on npm you can drop the token and switch to trusted publishing with OIDC instead, which the workflow already has the `id-token: write` permission for.
 
 Tests run against a fake game over a real socket, so Rocket League is not needed. Fixtures are copied verbatim from the official docs.
 
