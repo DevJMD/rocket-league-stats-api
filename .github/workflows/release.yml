@@ -144,6 +144,13 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload "${TAG}" artifacts/* --clobber
 
+      - name: Warn when npm publishing is not configured
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        if: env.NPM_TOKEN == ''
+        run: |
+          echo "::warning title=Not published to npm::Release ${TAG} was tagged and its artifacts attached, but no NPM_TOKEN secret is set so the publish step was skipped. Add the secret and re-run this job, or publish manually."
+
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
