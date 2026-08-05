@@ -178,7 +178,7 @@ Built with TypeScript 7 targeting `es2025`, the highest stable target Node 24 su
 
 Releases run on Conventional Commits through release-please, which is a two step flow. A push to `master` opens or updates a release PR, it does not publish. Merging that PR is what tags the version, writes `CHANGELOG.md`, attaches the compiled and source archives, and publishes to npm. Set `skip-github-pull-request: true` in the release workflow if you would rather it tag straight from `master`.
 
-Publishing uses npm trusted publishing over OIDC, so there is no token to manage. Configure the trusted publisher once in the package settings on npmjs.com, pointing at this repository and `.github/workflows/release.yml`. `publish.yml` is a manual escape hatch for republishing a tag.
+Publishing uses npm trusted publishing over OIDC, so there is no token to manage. Configure the trusted publisher once in the package settings on npmjs.com, pointing at this repository and `.github/workflows/release.yml`. Versioning uses release-please in single package mode, so tags are plain `vN.N.N`. `publish.yml` is a manual escape hatch for republishing a tag.
 
 Tests run against a fake game over a real socket, so Rocket League is not needed. Fixtures are copied verbatim from the official docs.
 
