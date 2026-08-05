@@ -1,0 +1,64 @@
+{
+  "name": "@devjmd/rocket-league-stats-api",
+  "version": "0.1.0",
+  "description": "Fully typed, zero dependency client for the official Rocket League Stats API. Reads live match ticks and events over a local TCP socket and sends spectator or replay commands back to the game.",
+  "keywords": [
+    "rocket-league",
+    "stats-api",
+    "psyonix",
+    "esports",
+    "broadcast",
+    "overlay",
+    "telemetry",
+    "typescript"
+  ],
+  "license": "MIT",
+  "author": "devjmd (https://github.com/DevJMD)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevJMD/rocket-league-stats-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DevJMD/rocket-league-stats-api/issues"
+  },
+  "homepage": "https://github.com/DevJMD/rocket-league-stats-api#readme",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc --project tsconfig.build.json && node scripts/rewrite-dts.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"examples/**/*.ts\" && node scripts/spacing.mjs",
+    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\" \"examples/**/*.ts\" && node scripts/spacing.mjs --check",
+    "test": "tsc && node --test --test-timeout=20000 \"dist-test/test/*.test.js\"",
+    "check": "npm run lint && npm run typecheck && npm run test",
+    "prepublishOnly": "npm run check"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "oxc-parser": "^0.143.0",
+    "oxlint": "^1.77.0",
+    "prettier": "^3.9.6",
+    "typescript": "^7.0.2"
+  }
+}

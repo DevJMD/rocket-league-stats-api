@@ -1,0 +1,65 @@
+# Build output
+/dist
+/dist-test
+/out-tsc
+*.tsbuildinfo
+
+# Dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/versions
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Packed tarballs
+*.tgz
+
+# Live capture output from the verification harness
+live-raw.jsonl
+live-report.txt
+live-fixtures.json
+
+# Test and coverage output
+/coverage
+/.nyc_output
+*.lcov
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Editors and IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Temporary
+/tmp
+/temp
+.cache
