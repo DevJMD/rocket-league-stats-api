@@ -49,9 +49,7 @@
           "section": "CI",
           "hidden": true
         }
-      ],
-      "component": ""
+      ]
     }
-  },
-  "separate-pull-requests": false
+  }
 }
