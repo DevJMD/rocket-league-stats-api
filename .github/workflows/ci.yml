@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ['22', '24', '26']
+        node: ['24', '26']
     steps:
       - uses: actions/checkout@v7
 
@@ -59,3 +59,65 @@ jobs:
 
       - name: Format check
         run: npm run format:check
+
+  consumers:
+    name: install with ${{ matrix.manager }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        manager: [npm, pnpm, bun, yarn]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - if: matrix.manager == 'pnpm'
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11
+
+      - if: matrix.manager == 'bun'
+        uses: oven-sh/setup-bun@v2
+
+      - run: npm ci
+
+      - name: Build and pack
+        run: |
+          set -euo pipefail
+          npm run build
+          npm pack --pack-destination /tmp
+
+      - name: Install the tarball and use it
+        working-directory: /tmp
+        run: |
+          set -euo pipefail
+          mkdir -p consumer && cd consumer
+          TARBALL=$(ls /tmp/devjmd-rocket-league-stats-api-*.tgz | head -1)
+          printf '{"name":"consumer","private":true,"type":"module"}\n' > package.json
+          cat > index.mjs <<'JS'
+          import { RocketLeagueStatsClient, StatsEvent } from '@devjmd/rocket-league-stats-api';
+
+          const goal = {
+              GoalSpeed: 2280,
+              GoalTime: 30,
+              ImpactLocation: { X: 0, Y: 0, Z: 0 },
+              Scorer: { Name: 'Consumer', Shortcut: 1, TeamNum: 0 },
+              BallLastTouch: { Player: { Name: 'Consumer', Shortcut: 1, TeamNum: 0 }, Speed: 2280 },
+          };
+
+          const client = new RocketLeagueStatsClient();
+          let seen = '';
+
+          client.on(StatsEvent.GoalScored, (g) => { seen = g.Scorer.Name; });
+          client.ingest(JSON.stringify({ Event: 'GoalScored', Data: JSON.stringify(goal) }));
+
+          if (seen !== 'Consumer') throw new Error('dispatch failed');
+
+          console.log('consumed successfully');
+          JS
+          ${{ matrix.manager }} add "$TARBALL"
+          node index.mjs
