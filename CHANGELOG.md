@@ -5,6 +5,19 @@
 
 ### Bug Fixes
 
+* 🐛 clear the component so tags stay plain vN.N.N ([2a808b0](https://github.com/DevJMD/rocket-league-stats-api/commit/2a808b0a2d667dac52701ad315435febbaa575a2))
+* 🐛 decouple npm publishing from artifact packaging ([b8457d7](https://github.com/DevJMD/rocket-league-stats-api/commit/b8457d70357de1ed8ae60397d2b73b90b9906756))
+* 🐛 publish in the release run instead of on the release event ([c2a3293](https://github.com/DevJMD/rocket-league-stats-api/commit/c2a3293c4277e1fb88ada1cb8d34698b94ca885d))
+* 🐛 set an empty release-please component ([a0c31f2](https://github.com/DevJMD/rocket-league-stats-api/commit/a0c31f2001eb8f48b82cd0e94af16319d67695f4))
+* 🐛 stop release-please expecting a component in the pr title ([bfe9ba3](https://github.com/DevJMD/rocket-league-stats-api/commit/bfe9ba3fe712a3ebfcd483e6f3bf5e6ba38826a7))
+* 🐛 stop the merge plugin rewriting the release pr title ([d8ea41c](https://github.com/DevJMD/rocket-league-stats-api/commit/d8ea41ca5964c69af92c79499283662615b83a1b))
+* 🐛 use release-please single package mode ([d9733d2](https://github.com/DevJMD/rocket-league-stats-api/commit/d9733d2f3d05b269cbbe89e27c86288aac6780fc))
+
+## [0.1.1](https://github.com/DevJMD/rocket-league-stats-api/compare/v0.1.0...v0.1.1) (2026-08-05)
+
+
+### Bug Fixes
+
 * 🐛 decouple npm publishing from artifact packaging ([b8457d7](https://github.com/DevJMD/rocket-league-stats-api/commit/b8457d70357de1ed8ae60397d2b73b90b9906756))
 * 🐛 publish in the release run instead of on the release event ([c2a3293](https://github.com/DevJMD/rocket-league-stats-api/commit/c2a3293c4277e1fb88ada1cb8d34698b94ca885d))
 
