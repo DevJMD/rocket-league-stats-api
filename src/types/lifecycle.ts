@@ -55,6 +55,15 @@ export interface ClientLifecycleMap {
     readonly warning: WarningInfo;
 }
 
+export const LifecycleEvent = {
+    Connected: 'connected',
+    Disconnected: 'disconnected',
+    Error: 'error',
+    Message: 'message',
+    UnknownEvent: 'unknownEvent',
+    Warning: 'warning',
+} as const satisfies Record<string, keyof ClientLifecycleMap>;
+
 export type ClientEventName = StatsApiEventName | keyof ClientLifecycleMap;
 
 export type ClientStatus = 'idle' | 'connecting' | 'connected' | 'reconnecting' | 'closed';

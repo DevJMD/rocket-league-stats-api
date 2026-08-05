@@ -61,16 +61,18 @@ export interface SetMatchPausedCommandData {
     readonly bPaused: boolean;
 }
 
-export const STATS_API_COMMANDS = [
-    'ChangePOV',
-    'LoadReplay',
-    'SeekReplay',
-    'SetGameSpeed',
-    'SetHUDVisibility',
-    'SetMatchPaused',
-] as const;
+export const StatsCommand = {
+    ChangePov: 'ChangePOV',
+    LoadReplay: 'LoadReplay',
+    SeekReplay: 'SeekReplay',
+    SetGameSpeed: 'SetGameSpeed',
+    SetHudVisibility: 'SetHUDVisibility',
+    SetMatchPaused: 'SetMatchPaused',
+} as const;
 
-export type StatsApiCommandName = (typeof STATS_API_COMMANDS)[number];
+export type StatsApiCommandName = (typeof StatsCommand)[keyof typeof StatsCommand];
+
+export const STATS_API_COMMANDS: readonly StatsApiCommandName[] = Object.values(StatsCommand);
 
 export interface StatsApiCommandMap {
     readonly ChangePOV: ChangePovCommandData;

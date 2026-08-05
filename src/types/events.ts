@@ -236,32 +236,34 @@ export interface StatfeedEventData {
 
 export const TICK_EVENT = 'UpdateState';
 
-export const STATS_API_EVENTS = [
-    'UpdateState',
-    'BallHit',
-    'BoostPickup',
-    'ClockUpdatedSeconds',
-    'CountdownBegin',
-    'CrossbarHit',
-    'GoalReplayEnd',
-    'GoalReplayStart',
-    'GoalReplayWillEnd',
-    'GoalScored',
-    'MatchCreated',
-    'MatchDestroyed',
-    'MatchEnded',
-    'MatchInitialized',
-    'MatchPaused',
-    'MatchUnpaused',
-    'PlayerJoined',
-    'PlayerLeft',
-    'PodiumStart',
-    'ReplayCreated',
-    'RoundStarted',
-    'StatfeedEvent',
-] as const;
+export const StatsEvent = {
+    UpdateState: 'UpdateState',
+    BallHit: 'BallHit',
+    BoostPickup: 'BoostPickup',
+    ClockUpdatedSeconds: 'ClockUpdatedSeconds',
+    CountdownBegin: 'CountdownBegin',
+    CrossbarHit: 'CrossbarHit',
+    GoalReplayEnd: 'GoalReplayEnd',
+    GoalReplayStart: 'GoalReplayStart',
+    GoalReplayWillEnd: 'GoalReplayWillEnd',
+    GoalScored: 'GoalScored',
+    MatchCreated: 'MatchCreated',
+    MatchDestroyed: 'MatchDestroyed',
+    MatchEnded: 'MatchEnded',
+    MatchInitialized: 'MatchInitialized',
+    MatchPaused: 'MatchPaused',
+    MatchUnpaused: 'MatchUnpaused',
+    PlayerJoined: 'PlayerJoined',
+    PlayerLeft: 'PlayerLeft',
+    PodiumStart: 'PodiumStart',
+    ReplayCreated: 'ReplayCreated',
+    RoundStarted: 'RoundStarted',
+    StatfeedEvent: 'StatfeedEvent',
+} as const;
 
-export type StatsApiEventName = (typeof STATS_API_EVENTS)[number];
+export type StatsApiEventName = (typeof StatsEvent)[keyof typeof StatsEvent];
+
+export const STATS_API_EVENTS: readonly StatsApiEventName[] = Object.values(StatsEvent);
 
 export interface StatsApiEventMap {
     readonly UpdateState: UpdateStateData;

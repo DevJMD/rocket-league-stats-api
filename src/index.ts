@@ -71,6 +71,7 @@ export type { HandlerBinding, HandlerMode } from './decorators.ts';
 
 export { StatsPlugin } from './plugin.ts';
 
+export { LifecycleEvent } from './types/lifecycle.ts';
 export type {
     ClientEventName,
     ClientLifecycleMap,
@@ -107,7 +108,7 @@ export type { JsonFrameBufferOptions } from './protocol/framer.ts';
 export { isRecord } from './protocol/validation.ts';
 export type { IssueSeverity, Mutable, ValidationIssue } from './protocol/validation.ts';
 
-export { FOCUS_BALL, PERSPECTIVES, STATS_API_COMMANDS } from './types/commands.ts';
+export { FOCUS_BALL, PERSPECTIVES, STATS_API_COMMANDS, StatsCommand } from './types/commands.ts';
 export type {
     ChangePovCommandData,
     Focus,
@@ -135,7 +136,7 @@ export {
 } from './types/config.ts';
 export type { StatsApiGameConfig } from './types/config.ts';
 
-export { STATS_API_EVENTS, TICK_EVENT } from './types/events.ts';
+export { STATS_API_EVENTS, StatsEvent, TICK_EVENT } from './types/events.ts';
 export type {
     BallHitBall,
     BallHitData,
