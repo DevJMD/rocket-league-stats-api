@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1](https://github.com/DevJMD/rocket-league-stats-api/compare/v0.1.0...v0.1.1) (2026-08-05)
+
+
+### Bug Fixes
+
+* 🐛 decouple npm publishing from artifact packaging ([b8457d7](https://github.com/DevJMD/rocket-league-stats-api/commit/b8457d70357de1ed8ae60397d2b73b90b9906756))
+* 🐛 publish in the release run instead of on the release event ([c2a3293](https://github.com/DevJMD/rocket-league-stats-api/commit/c2a3293c4277e1fb88ada1cb8d34698b94ca885d))
+
 ## 0.1.0 (2026-08-05)
 
 
